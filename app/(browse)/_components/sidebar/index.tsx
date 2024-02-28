@@ -2,10 +2,12 @@ import React from 'react'
 import Wrapper from './wrapper'
 import Recommended from './recommended'
 import { getRecommended } from '@/lib/recommended-service'
+import { getFollowingUsers } from '@/lib/follow-service'
+import Following from './following'
 
 const Sidebar =  async () => {
     const recommended = await getRecommended()
-
+    const following = await getFollowingUsers()
 
   return (
     <Wrapper>
@@ -15,7 +17,9 @@ const Sidebar =  async () => {
               For You
             </p>
           </div>
-          <Recommended data= {recommended}/>
+          <Following data= {following}/>
+          <Recommended data= {recommended}/> 
+          
         </div>
     </Wrapper>
   )
