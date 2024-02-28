@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
+import {Toaster} from 'sonner'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,6 +26,7 @@ export default function RootLayout({
         forcedTheme="dark"
         storageKey="bytetv-theme"
         >
+          <Toaster theme="light" />
         {children}
         </ThemeProvider>
         </body>
