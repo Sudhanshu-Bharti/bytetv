@@ -14,22 +14,22 @@ const Navigation = () => {
        
         {
             label: "Stream",
-            href: `u/${user?.username}/stream`,
+            href: `/u/${user?.username}`,
             icon: Fullscreen
         },
         {
             label: "Keys",
-            href: `u/${user?.username}/keys`,
+            href: `/u/${user?.username}/keys`,
             icon: KeyRound
         },
         {
             label: "Chat",
-            href: `u/${user?.username}/chat`,
+            href: `/u/${user?.username}/chat`,
             icon: MessageCircle
         },
         {
             label: "Community",
-            href: `u/${user?.username}/community`,
+            href: `/u/${user?.username}/community`,
             icon: Users
         },
     ]
