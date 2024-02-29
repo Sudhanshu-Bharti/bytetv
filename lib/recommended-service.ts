@@ -23,7 +23,6 @@ export const getRecommended = async ()=> {
                         },
                     },
                     {   
-                        
                         NOT: {
                             followedBy: {
                                 some :{
