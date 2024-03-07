@@ -17,8 +17,7 @@ export const createViewerToken = async( hostIdentity: string) => {
         user = { id , username}
     }
     const host = await getUserByUserID(hostIdentity)
-    console.log('user.id:', user.id);
-
+    
     if(!host){
         throw new Error("user not dound");
     }

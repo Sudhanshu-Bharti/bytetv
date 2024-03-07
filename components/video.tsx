@@ -1,26 +1,38 @@
 "use client"
-import React, { useRef } from 'react'
+import React from 'react'
 import { ConnectionState, Track } from 'livekit-client'
-import { VideoTrack, useConnectionState, useRemoteParticipant , useTracks } from '@livekit/components-react'
+import { useConnectionState, useRemoteParticipant , useTracks } from '@livekit/components-react'
+import { User } from '@prisma/client'
+import LiveVideo from './live-video'
 
 
 interface VideoProps { 
     hostname: string
-    hostIdentity: string    
+    hostIdentity: string
  }
 
 
 const Video = ({hostIdentity, hostname}: VideoProps) => {
-    
+
     const connectionState = useConnectionState()
-    const participant = useRemoteParticipant(hostIdentity)
-    const videoEl = useRef<HTMLVideoElement>(null);
+    const participant = useRemoteParticipant(hostIdentity);
+    // console.log({participant});
+    
+    // if (!participant) {
+    //   console.log('No participant found with the identity:', hostIdentity);
+    // } else {
+    //   console.log('Participant found:', participant);
+    // }
     
     const tracks = useTracks([
         Track.Source.Camera,
         Track.Source.Microphone
         ]).filter((track) => track.participant.identity === hostIdentity)
+        
 
+        // console.log(participant);
+        console.log("tracks", tracks.length);
+        
     let content    
     
     if(!participant && connectionState === ConnectionState.Connected){
@@ -30,20 +42,12 @@ const Video = ({hostIdentity, hostname}: VideoProps) => {
         content = <p>loading..</p>
     }
     else {
-        content = <p>Live video</p>
+        content = <LiveVideo participant={participant}/>
     }
 
-    useTracks(Object.values(Track.Source))
-    .filter((track) => track.participant.identity === hostIdentity)
-    .forEach((track) => {
-      if (videoEl.current) {
-        track.publication.track?.attach(videoEl.current);
-      }
-    });
   return (
     <div className='aspect-video border-b group relative'>
-        {/* {content} */}
-        <video ref={videoEl} width="100%" />
+        {content}
         </div>
   )
 }
