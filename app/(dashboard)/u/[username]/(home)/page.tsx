@@ -21,9 +21,9 @@ const CreatorPage = async ({params}: CreatorPageProps) => {
   return (
     <div className='ml-60 h-full'>
       <StreamPlayer
-      user={user}
-      stream={user.stream}
-      isFollowing={true}
+        user={user}
+        stream={user.stream}
+        isFollowing
       />
     </div>
   )

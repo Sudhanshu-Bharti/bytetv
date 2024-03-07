@@ -1,8 +1,10 @@
 "use client"
 
 import { Stream, User } from '@prisma/client'
+import {LiveKitRoom} from '@livekit/components-react'
 import React from 'react'
-import {LiveKitRoom, VideoConference, VideoTrack} from "@livekit/components-react"
+import { useViewerToken } from '@/hooks/use-viewer-token'
+import Video from './video'
 
 interface StreamPlayerProps {
     user: User & {stream: Stream | null}
@@ -11,11 +13,34 @@ interface StreamPlayerProps {
 }
 
 export const StreamPlayer = ({user, stream, isFollowing}: StreamPlayerProps) => {
+    const {token , name , identity} =   useViewerToken(user.id)
+    // console.log("\ntoken" , token);
+    // console.log("\nname" , name);
+    console.log({token , name , identity} )
+
     
+    if(!token || !name || !identity){
+        <div>
+            <h1>Not allowed</h1>
+        </div>
+    }
+
     return (
-    <div>
-       
-       
-    </div>
+    <>
+       <LiveKitRoom
+        token={token} 
+        serverUrl={process.env.NEXT_WEBSOCKET_LIVEKIT_URL}
+        className='grid grid-cols-1 h-full'
+       >
+        <div className='space-y-4 col-span-1 hidden-scrollbar pb-10'>
+            <Video
+            hostname={user.username}
+            hostIdentity={user.id}
+            />
+                
+        </div>
+       </LiveKitRoom>
+
+    </>
   )
 }
