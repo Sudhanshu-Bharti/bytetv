@@ -1,6 +1,5 @@
 import { useTracks } from '@livekit/components-react'
 import { Participant, Track } from 'livekit-client'
-import { VideoOff } from 'lucide-react'
 import React, { useRef } from 'react'
 
 interface LiveVideoProps {
@@ -24,7 +23,7 @@ const LiveVideo = ({participant}: LiveVideoProps) => {
 
   return (
     <div className='relative h-full flex'>
-        <video width="100%" />
+        <video ref={videoRef} width="100%" />
         </div>
   )
 }
