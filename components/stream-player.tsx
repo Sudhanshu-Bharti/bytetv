@@ -5,6 +5,7 @@ import {LiveKitRoom} from '@livekit/components-react'
 import React from 'react'
 import { useViewerToken } from '@/hooks/use-viewer-token'
 import {Video} from './video'
+import Chat from './chat'
 
 interface StreamPlayerProps {
     user: User & {stream: Stream | null}
@@ -36,8 +37,18 @@ export const StreamPlayer = ({user, stream, isFollowing}: StreamPlayerProps) => 
             <Video
             hostName={user.username}
             hostIdentity={user.id}
+            />            
+        </div>
+        <div className='col-span-1'>
+            <Chat
+                viewerName ={name}
+                hostName= {user.username}
+                hostIdentity={user.id}
+                isFollowing={isFollowing}
+                isChatEnabled={stream.isChatEnabled}
+                isChatDelayed ={stream.isChatDelayed}
+                isChatFollowersOnly = {stream.isChatFollowersOnly}
             />
-                
         </div>
        </LiveKitRoom>
 
