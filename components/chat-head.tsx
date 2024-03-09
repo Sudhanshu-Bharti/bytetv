@@ -2,7 +2,7 @@
 import React, { use, useState } from 'react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { Send } from 'lucide-react'
+import { Info, Send } from 'lucide-react'
 interface ChatHeadProps {
     onSubmit: () => void   
     value: string
@@ -47,14 +47,37 @@ const ChatHead = ({hostName,isChatDelayed,isChatFollowersOnly,isFollowing,isHidd
     return null
   }
   
+    if (isChatDelayed) {
+        return "Chat is delayed"
+    } else if (isChatFollowersOnly && !isFollowing) {
+        return "Follow to chat"
+    } else if (isChatDelayed) {
+        return "Chat is delayed"
+    } else if (isChatDelayed && isChatFollowersOnly) {
+        return "Chat Followers only. msg is 3 sec delayed"
+
+    } else if(!isChatDelayed && !isChatFollowersOnly){
+        return null
+    }
+
   
   return (
+        <>
+            <div className='p-2 text-muted-forground bg-white border border-white  w-full rounded-t-md flex items-center gap-x-2'>
+                <Info className='h-4 w-4' />
+                <p className='text-xs font-semibold'>
+                    {isChatFollowersOnly ? 'Followers Only' : 'Public'}
+                </p>
+            </div>
 
-            
-            <form  onSubmit={onSubmit} className='flex flex-col items-center p-3 gap-y-4'>
+                {/* <ChatList
+                    isHidden={isHidden}
+
+                /> */}
+                <form  onSubmit={onSubmit} className='flex flex-col items-center p-3 gap-y-4'>
                 <p className='font-semibold text-center'>
                     Stream Chat
-               </p>
+                </p>
                 <div className='w-full'>
                     <Input 
                     onChange={(e)=>onChange(e.target.value)}
@@ -62,7 +85,6 @@ const ChatHead = ({hostName,isChatDelayed,isChatFollowersOnly,isFollowing,isHidd
                     disabled={isDisabled}
                     placeholder="Type a message"
                     className='border-white text-white'
-
                     />
                 </div>
                 <div className='ml-auto'>
@@ -77,6 +99,10 @@ const ChatHead = ({hostName,isChatDelayed,isChatFollowersOnly,isFollowing,isHidd
                     </Button>
                 </div>
             </form>
+        
+        </>
+            
+            
 
   )
 }

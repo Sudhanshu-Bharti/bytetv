@@ -38,21 +38,19 @@ const Chat = ({hostIdentity,hostName,isChatDelayed,isChatEnabled,isChatFollowers
 
     return (
     <div className='flex flex-row-reverse items-center justify-center bg-background border-l pt-0 h-[calc(100vh-80px)]'>
-
         <>
 
         <div className=' p-3 border-b flex justify-end'>
-
-        <ChatHead 
-        onSubmit={onSubmit}
-        value= {value} 
-        onChange={onChange} 
-        isHidden={isHidden} 
-        isChatFollowersOnly={isChatFollowersOnly} 
-        isChatDelayed={isChatDelayed} 
-        isFollowing={isFollowing} 
-        hostName={hostName} 
-        viewerName={viewerName} />
+            <ChatHead 
+            onSubmit={onSubmit}
+            value= {value} 
+            onChange={onChange} 
+            isHidden={isHidden} 
+            isChatFollowersOnly={isChatFollowersOnly} 
+            isChatDelayed={isChatDelayed} 
+            isFollowing={isFollowing} 
+            hostName={hostName} 
+            viewerName={viewerName} />
         </div>
         </>
     </div>
