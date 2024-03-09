@@ -26,21 +26,21 @@ const Chat = ({hostIdentity,hostName,isChatDelayed,isChatEnabled,isChatFollowers
     // const reverseMsg = messages.slice().reverse()
     const reverseMsg = useMemo(() => messages.sort((a,b) => b.timestamp - a.timestamp  ) , [messages])
     const onSubmit = () => {
-        if(!send) return
-
-        send(value)
-        setValue("")
-    }
+        if (!send) return;
+    
+        send(value);
+        setValue("");
+      };
 
     const onChange =(value : string)=> {
         setValue(value)
     }
 
     return (
-    <div className='flex flex-row-reverse items-center justify-center bg-background border-l pt-0 h-[calc(100vh-80px)]'>
+    <div className='flex flex-col h-full bg-background'>
         <>
 
-        <div className=' p-3 border-b flex justify-end'>
+        <div className='p-3 border-b'>
             <ChatHead 
             onSubmit={onSubmit}
             value= {value} 
@@ -50,7 +50,9 @@ const Chat = ({hostIdentity,hostName,isChatDelayed,isChatEnabled,isChatFollowers
             isChatDelayed={isChatDelayed} 
             isFollowing={isFollowing} 
             hostName={hostName} 
-            viewerName={viewerName} />
+            viewerName={viewerName}
+            messages={reverseMsg}
+            />
         </div>
         </>
     </div>

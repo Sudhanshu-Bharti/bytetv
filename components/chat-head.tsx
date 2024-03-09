@@ -3,6 +3,8 @@ import React, { use, useState } from 'react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Info, Send } from 'lucide-react'
+import ChatList from './chat-list'
+import { ReceivedChatMessage } from '@livekit/components-react'
 interface ChatHeadProps {
     onSubmit: () => void   
     value: string
@@ -13,11 +15,12 @@ interface ChatHeadProps {
     isFollowing: boolean
     hostName: string
     viewerName: string
+    messages: ReceivedChatMessage[]
 
 }
 
 
-const ChatHead = ({hostName,isChatDelayed,isChatFollowersOnly,isFollowing,isHidden,onChange,onSubmit,value,viewerName}: ChatHeadProps) => {
+const ChatHead = ({hostName,isChatDelayed,isChatFollowersOnly,isFollowing,isHidden,onChange,onSubmit,value,viewerName , messages}: ChatHeadProps) => {
   const [isDelayedBlocked , setIsDelayedBlocked] = useState(false)
 
   const FollowersOnlyButNotFollowed = isChatFollowersOnly && !isFollowing
@@ -46,35 +49,23 @@ const ChatHead = ({hostName,isChatDelayed,isChatFollowersOnly,isFollowing,isHidd
   if (isHidden) {
     return null
   }
-  
-    if (isChatDelayed) {
-        return "Chat is delayed"
-    } else if (isChatFollowersOnly && !isFollowing) {
-        return "Follow to chat"
-    } else if (isChatDelayed) {
-        return "Chat is delayed"
-    } else if (isChatDelayed && isChatFollowersOnly) {
-        return "Chat Followers only. msg is 3 sec delayed"
 
-    } else if(!isChatDelayed && !isChatFollowersOnly){
-        return null
-    }
 
   
   return (
         <>
-            <div className='p-2 text-muted-forground bg-white border border-white  w-full rounded-t-md flex items-center gap-x-2'>
+            <div className=' text-muted-forground bg-background  w-full rounded-t-md flex items-center gap-x-2'>
                 <Info className='h-4 w-4' />
                 <p className='text-xs font-semibold'>
                     {isChatFollowersOnly ? 'Followers Only' : 'Public'}
                 </p>
             </div>
 
-                {/* <ChatList
-                    isHidden={isHidden}
-
-                /> */}
-                <form  onSubmit={onSubmit} className='flex flex-col items-center p-3 gap-y-4'>
+                    <ChatList
+                        isHidden={isHidden}
+                        messages={messages}
+                    />
+                <form  onSubmit={handleSubmit} className='flex flex-col items-center p-3 gap-y-4'>
                 <p className='font-semibold text-center'>
                     Stream Chat
                 </p>
