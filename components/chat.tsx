@@ -37,7 +37,7 @@ const Chat = ({hostIdentity,hostName,isChatDelayed,isChatEnabled,isChatFollowers
     }
 
     return (
-    <div className='flex flex-col h-full bg-background'>
+    <div className='flex flex-col h-full bg-background ml-60'>
         <>
 
         <div className='p-3 border-b'>

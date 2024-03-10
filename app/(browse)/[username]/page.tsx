@@ -1,30 +1,33 @@
-import { isFollowingUser } from '@/lib/follow-service'
-import { getUserByUsername } from '@/lib/user-service'
-import React from 'react'
-import Actions from './_components/action'
+import { notFound } from "next/navigation";
 
-interface UserPageProps{
-    params:{
-        username: string
-    }
-}
+import { getUserByUsername } from "@/lib/user-service";
+import { isFollowingUser } from "@/lib/follow-service";
+import { StreamPlayer } from "@/components/stream-player";
 
-const UserPage = async ({params}: UserPageProps) => {
-  const user = await getUserByUsername(params.username)
+interface UserPageProps {
+  params: {
+    username: string;
+  };
+};
 
-  if(!user){
-    return null
+const UserPage = async ({
+  params
+}: UserPageProps) => {
+  const user = await getUserByUsername(params.username);
+
+  if (!user || !user.stream) {
+    notFound();
   }
-  const isFollowing = await isFollowingUser(user.id)
 
-  return (
-    <div className='ml-60  flex flex-col gap-y-4'>
-      <p>username: {user.username}</p>
-      <p>id: {user.id}</p>
-      <p>isfollowing: {`${isFollowing}`}</p>
-      <Actions userId={user.id} isFolllowing= {isFollowing} />
-      </div>
-  )
+  const isFollowing = await isFollowingUser(user.id);
+
+  return ( 
+    <StreamPlayer
+      user={user}
+      stream={user.stream}
+      isFollowing={isFollowing}
+    />
+  );
 }
-
-export default UserPage
+ 
+export default UserPage;
